@@ -3,6 +3,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
 import { Link, Navigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaFacebookF, FaApple, FaGoogle } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
@@ -11,6 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const { isAuthorized, setIsAuthorized } = useContext(Context);
 
@@ -42,61 +44,80 @@ const Login = () => {
   }
 
   return (
-    <>
-      <section className="authPage">
-        <div className="container">
-          <div className="header">
-            <img src="/careerconnect-black.png" alt="logo" />
-            <h3>Login to your account</h3>
+    <div className="auth-dribbble">
+      <div className="auth-illustration">
+        <img src="/login.png" alt="illustration" />
+      </div>
+      <div className="auth-form">
+        <div className="auth-heading">Welcome,<br />please authorize</div>
+        <div className="social-buttons">
+          <button type="button" className="social-btn" title="Login with Facebook"><FaFacebookF /></button>
+          <button type="button" className="social-btn" title="Login with Apple"><FaApple /></button>
+          <button type="button" className="social-btn" title="Login with Google"><FaGoogle /></button>
+        </div>
+        <form autoComplete="off">
+          <div className="inputTag">
+            <div>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+              >
+                <option value="" disabled hidden></option>
+                <option value="Job Seeker">Job Seeker</option>
+                <option value="Employer">Employer</option>
+              </select>
+              <FaRegUser />
+            </div>
+            <label className={role ? "floating" : ""}>Login As</label>
           </div>
-          <form>
-            <div className="inputTag">
-              <label>Login As</label>
-              <div>
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
-                  <option value="">Select Role</option>
-                  
-                  <option value="Job Seeker">Job Seeker</option>
-                  <option value="Employer">Employer</option>
-                </select>
-                <FaRegUser />
-              </div>
+          <div className="inputTag">
+            <div>
+              <input
+                type="email"
+                placeholder=" "
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="username"
+              />
+              <MdOutlineMailOutline />
             </div>
-            <div className="inputTag">
-              <label>Email Address</label>
-              <div>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <MdOutlineMailOutline />
-              </div>
+            <label className={email ? "floating" : ""}>Email</label>
+          </div>
+          <div className="inputTag">
+            <div>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder=" "
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+              />
+              <span
+                className="toggle-password"
+                onClick={() => setShowPassword((prev) => !prev)}
+                tabIndex={0}
+                role="button"
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+              <RiLock2Fill />
             </div>
-            <div className="inputTag">
-              <label>Password</label>
-              <div>
-                <input
-                  type="password"
-                  placeholder="Enter your Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <RiLock2Fill />
-              </div>
-            </div>
-            <button type="submit" onClick={handleLogin}>
-              Login
-            </button>
-            <Link to={"/register"}>Register Now</Link>
-          </form>
-        </div>
-        <div className="banner">
-          <img src="/login.png" alt="login" />
-        </div>
-      </section>
-    </>
+            <label className={password ? "floating" : ""}>Password</label>
+          </div>
+          <Link to="#" className="auth-link">Forgot password?</Link>
+          <div className="auth-actions">
+            <button type="submit" onClick={handleLogin} className="auth-btn-primary">Login</button>
+            <Link to={"/register"} className="auth-btn-secondary" style={{textDecoration: 'none'}}>
+              Sign Up
+            </Link>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

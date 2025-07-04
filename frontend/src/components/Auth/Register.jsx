@@ -8,6 +8,7 @@ import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
+import { FaEye, FaEyeSlash, FaFacebookF, FaApple, FaGoogle } from "react-icons/fa";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,7 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const { isAuthorized, setIsAuthorized, user, setUser } = useContext(Context);
 
@@ -47,86 +49,108 @@ const Register = () => {
     return <Navigate to={'/'}/>
   }
 
-
   return (
-    <>
-      <section className="authPage">
-        <div className="container">
-          <div className="header">
-            <img src="/careerconnect-black.png" alt="logo" />
-            <h3>Create a new account</h3>
+    <div className="auth-dribbble">
+      <div className="auth-illustration">
+        <img src="/register.png" alt="illustration" />
+      </div>
+      <div className="auth-form">
+        <div className="auth-heading">Create your account</div>
+        <div className="social-buttons">
+          <button type="button" className="social-btn" title="Sign up with Facebook"><FaFacebookF /></button>
+          <button type="button" className="social-btn" title="Sign up with Apple"><FaApple /></button>
+          <button type="button" className="social-btn" title="Sign up with Google"><FaGoogle /></button>
+        </div>
+        <form autoComplete="off">
+          <div className="inputTag">
+            <div>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+              >
+                <option value="" disabled hidden></option>
+                <option value="Employer">Employer</option>
+                <option value="Job Seeker">Job Seeker</option>
+              </select>
+              <FaRegUser />
+            </div>
+            <label className={role ? "floating" : ""}>Register As</label>
           </div>
-          <form>
-            <div className="inputTag">
-              <label>Register As</label>
-              <div>
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
-                  <option value="">Select Role</option>
-                  <option value="Employer">Employer</option>
-                  <option value="Job Seeker">Job Seeker</option>
-                </select>
-                <FaRegUser />
-              </div>
+          <div className="inputTag">
+            <div>
+              <input
+                type="text"
+                placeholder=" "
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                autoComplete="name"
+              />
+              <FaPencilAlt />
             </div>
-            <div className="inputTag">
-              <label>Name</label>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <FaPencilAlt />
-              </div>
+            <label className={name ? "floating" : ""}>Name</label>
+          </div>
+          <div className="inputTag">
+            <div>
+              <input
+                type="email"
+                placeholder=" "
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+              />
+              <MdOutlineMailOutline />
             </div>
-            <div className="inputTag">
-              <label>Email Address</label>
-              <div>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <MdOutlineMailOutline />
-              </div>
+            <label className={email ? "floating" : ""}>Email</label>
+          </div>
+          <div className="inputTag">
+            <div>
+              <input
+                type="number"
+                placeholder=" "
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+                autoComplete="tel"
+              />
+              <FaPhoneFlip />
             </div>
-            <div className="inputTag">
-              <label>Phone Number</label>
-              <div>
-                <input
-                  type="number"
-                  placeholder="Enter your phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-                <FaPhoneFlip />
-              </div>
+            <label className={phone ? "floating" : ""}>Phone Number</label>
+          </div>
+          <div className="inputTag">
+            <div>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder=" "
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="new-password"
+              />
+              <span
+                className="toggle-password"
+                onClick={() => setShowPassword((prev) => !prev)}
+                tabIndex={0}
+                role="button"
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+              <RiLock2Fill />
             </div>
-            <div className="inputTag">
-              <label>Password</label>
-              <div>
-                <input
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <RiLock2Fill />
-              </div>
-            </div>
-            <button type="submit" onClick={handleRegister}>
-              Register
-            </button>
-            <Link to={"/login"}>Login Now</Link>
-          </form>
-        </div>
-        <div className="banner">
-          <img src="/register.png" alt="login" />
-        </div>
-      </section>
-    </>
+            <label className={password ? "floating" : ""}>Password</label>
+          </div>
+          <div className="auth-actions">
+            <button type="submit" onClick={handleRegister} className="auth-btn-primary">Sign Up</button>
+            <Link to={"/login"} className="auth-btn-secondary" style={{textDecoration: 'none'}}>
+              Login
+            </Link>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 
