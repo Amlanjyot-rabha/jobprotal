@@ -10,6 +10,17 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
 const app = express();
+config({ path: "./config/config.env" });
+ 
+
+// app.use(
+//   cors({
+//     origin: process.env.FRONTEND_URL,
+//     method: ["GET", "POST", "DELETE", "PUT"],
+//     credentials: true,cd
+//   })
+// );
+
 const allowedOrigins = [
   process.env.FRONTEND_URL,           // production frontend
   "http://localhost:5173"             // local frontend for development
@@ -31,7 +42,6 @@ app.use(
   })
 );
 
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -44,7 +54,7 @@ app.use(
 );
 
  
-
+ 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/application", applicationRouter);
@@ -54,5 +64,7 @@ app.get('/', (req, res) => {
 });
 
  
+ 
+
 app.use(errorMiddleware);
 export default app;
