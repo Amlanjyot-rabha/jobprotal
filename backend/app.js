@@ -10,12 +10,24 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
 const app = express();
-config({ path: "./config/config.env" });
+const allowedOrigins = [
+  process.env.FRONTEND_URL,           // production frontend
+  "http://localhost:5173"             // local frontend for development
+];
+
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
-    method: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true,
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps, curl, postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // ✅ This is required to send cookies across origins
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
 
