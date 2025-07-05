@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { AiOutlineClose } from "react-icons/ai"; // Import the close icon
+import { AiOutlineClose } from "react-icons/ai";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -28,47 +28,48 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={isAuthorized ? "navbarShow" : "navbarHide"}>
-      <div className="container">
-        <div className="logo">
+    <nav className={isAuthorized ? "navbar-modern" : "navbarHide"}>
+      <div className="navbar-container">
+        <div className="navbar-logo">
           <img src="/careerconnect-white.png" alt="logo" />
         </div>
-        <ul className={!show ? "menu" : "show-menu menu"}>
+        <ul className={show ? "navbar-menu show" : "navbar-menu"}>
           <li>
-            <Link to={"/"} onClick={() => setShow(false)}>
-              HOME
+            <Link to="/" onClick={() => setShow(false)}>
+              Home
             </Link>
           </li>
           <li>
-            <Link to={"/job/getall"} onClick={() => setShow(false)}>
-              ALL JOBS
+            <Link to="/job/getall" onClick={() => setShow(false)}>
+              All Jobs
             </Link>
           </li>
           <li>
-            <Link to={"/applications/me"} onClick={() => setShow(false)}>
+            <Link to="/applications/me" onClick={() => setShow(false)}>
               {user && user.role === "Employer"
-                ? "APPLICANT'S APPLICATIONS"
-                : "MY APPLICATIONS"}
+                ? "Applicants"
+                : "My Applications"}
             </Link>
           </li>
-          {user && user.role === "Employer" ? (
+          {user && user.role === "Employer" && (
             <>
               <li>
-                <Link to={"/job/post"} onClick={() => setShow(false)}>
-                  POST NEW JOB
+                <Link to="/job/post" onClick={() => setShow(false)}>
+                  Post Job
                 </Link>
               </li>
               <li>
-                <Link to={"/job/me"} onClick={() => setShow(false)}>
-                  VIEW YOUR JOBS
+                <Link to="/job/me" onClick={() => setShow(false)}>
+                  Your Jobs
                 </Link>
               </li>
             </>
-          ) : null}
-
-          <button onClick={handleLogout}>LOGOUT</button>
+          )}
+          <li>
+            <button className="navbar-logout" onClick={handleLogout}>Logout</button>
+          </li>
         </ul>
-        <div className="hamburger" onClick={() => setShow(!show)}>
+        <div className="navbar-hamburger" onClick={() => setShow(!show)}>
           {show ? <AiOutlineClose /> : <GiHamburgerMenu />}
         </div>
       </div>

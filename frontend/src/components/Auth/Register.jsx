@@ -69,66 +69,70 @@ const Register = () => {
                 onChange={(e) => setRole(e.target.value)}
                 required
               >
-                <option value="" disabled hidden></option>
+                <option value="" disabled hidden>Role</option>
                 <option value="Employer">Employer</option>
                 <option value="Job Seeker">Job Seeker</option>
               </select>
+              <label className={role ? "floating" : ""}>Register As</label>
               <FaRegUser />
             </div>
-            <label className={role ? "floating" : ""}>Register As</label>
           </div>
           <div className="inputTag">
             <div>
               <input
                 type="text"
-                placeholder=" "
+                placeholder="name.."
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
                 autoComplete="name"
               />
+              <label className={name ? "floating" : ""}>Name</label>
               <FaPencilAlt />
             </div>
-            <label className={name ? "floating" : ""}>Name</label>
           </div>
           <div className="inputTag">
             <div>
               <input
                 type="email"
-                placeholder=" "
+                placeholder="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
               />
+              <label className={email ? "floating" : ""}>Email</label>
               <MdOutlineMailOutline />
             </div>
-            <label className={email ? "floating" : ""}>Email</label>
           </div>
+
           <div className="inputTag">
             <div>
               <input
                 type="number"
-                placeholder=" "
+                placeholder="number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
                 autoComplete="tel"
               />
+              <label className={phone ? "floating" : ""}></label>
               <FaPhoneFlip />
             </div>
-            <label className={phone ? "floating" : ""}>Phone Number</label>
+                 
           </div>
+
           <div className="inputTag">
             <div>
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder=" "
+                placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="new-password"
               />
+              <label className={password ? "floating" : ""}>Password</label>
               <span
                 className="toggle-password"
                 onClick={() => setShowPassword((prev) => !prev)}
@@ -140,7 +144,6 @@ const Register = () => {
               </span>
               <RiLock2Fill />
             </div>
-            <label className={password ? "floating" : ""}>Password</label>
           </div>
           <div className="auth-actions">
             <button type="submit" onClick={handleRegister} className="auth-btn-primary">Sign Up</button>

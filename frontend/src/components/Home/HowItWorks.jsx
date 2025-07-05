@@ -3,42 +3,33 @@ import { FaUserPlus } from "react-icons/fa";
 import { MdFindInPage } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
 
-const HowItWorks = () => {
-  return (
-    <>
-      <div className="howitworks">
-        <div className="container">
-          <h3>How Career Connect Works !</h3>
-          <div className="banner">
-            <div className="card">
-              <FaUserPlus />
-              <p>Create Account</p>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Consequuntur, culpa.
-              </p>
-            </div>
-            <div className="card">
-              <MdFindInPage />
-              <p>Find a Job/Post a Job</p>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Consequuntur, culpa.
-              </p>
-            </div>
-            <div className="card">
-              <IoMdSend />
-              <p>Apply For Job/Recruit Suitable Candidates</p>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Consequuntur, culpa.
-              </p>
-            </div>
+const steps = [
+  {
+    icon: <FaUserPlus />, title: "Create Account", desc: "Sign up and join the platform in seconds."
+  },
+  {
+    icon: <MdFindInPage />, title: "Find or Post Jobs", desc: "Browse jobs or post your own opportunities."
+  },
+  {
+    icon: <IoMdSend />, title: "Apply or Recruit", desc: "Apply for jobs or recruit top talent easily."
+  }
+];
+
+const HowItWorks = () => (
+  <section className="howitworks-modern">
+    <div className="howitworks-container">
+      <h3 className="howitworks-title">How Career Connect Works</h3>
+      <div className="howitworks-steps">
+        {steps.map((step, idx) => (
+          <div className="howitworks-card" key={idx}>
+            <div className="howitworks-icon">{step.icon}</div>
+            <div className="howitworks-card-title">{step.title}</div>
+            <div className="howitworks-card-desc">{step.desc}</div>
           </div>
-        </div>
+        ))}
       </div>
-    </>
-  );
-};
+    </div>
+  </section>
+);
 
 export default HowItWorks;

@@ -1,65 +1,61 @@
-import React from "react";
-import { FaBuilding, FaSuitcase, FaUsers, FaUserPlus } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaSearch, FaMapMarkerAlt, FaChevronDown } from "react-icons/fa";
+
+const filterChips = [
+  "Experience Level",
+  "Company",
+  "Job types",
+  "Salary",
+  "Markets",
+  "Benefits",
+];
 
 const HeroSection = () => {
-  const details = [
-    {
-      id: 1,
-      title: "1,23,441",
-      subTitle: "Live Job",
-      icon: <FaSuitcase />,
-    },
-    {
-      id: 2,
-      title: "91220",
-      subTitle: "Companies",
-      icon: <FaBuilding />,
-    },
-    {
-      id: 3,
-      title: "2,34,200",
-      subTitle: "Job Seekers",
-      icon: <FaUsers />,
-    },
-    {
-      id: 4,
-      title: "1,03,761",
-      subTitle: "Employers",
-      icon: <FaUserPlus />,
-    },
-  ];
+  const [job, setJob] = useState("");
+  const [location, setLocation] = useState("");
+
   return (
-    <>
-      <div className="heroSection">
-        <div className="container">
-          <div className="title">
-            <h1>Find a job that suits</h1>
-            <h1>your interests and skills</h1>
-            <p>
-              Discover job opportunities that match your skills and passions.
-              Connect with employers seeking talent like yours for rewarding
-              careers.
-            </p>
+    <section className="hero-landing">
+      <div className="hero-bg">
+        <div className="hero-content">
+          <h1 className="hero-title">Let's find your dream job</h1>
+          <p className="hero-subtitle">
+            Discover the best remote and work from home jobs at top remote companies.
+          </p>
+          <form className="hero-searchbar" onSubmit={e => e.preventDefault()}>
+            <div className="search-input-group">
+              <FaSearch className="search-icon" />
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Job title or keyword"
+                value={job}
+                onChange={e => setJob(e.target.value)}
+              />
+            </div>
+            <div className="search-input-group">
+              <FaMapMarkerAlt className="search-icon" />
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Country or time zone"
+                value={location}
+                onChange={e => setLocation(e.target.value)}
+              />
+            </div>
+            <button className="search-clear" type="button">Clear</button>
+            <button className="search-btn" type="submit">Search</button>
+          </form>
+          <div className="hero-filters">
+            {filterChips.map((chip, idx) => (
+              <button className="filter-chip" key={chip} type="button">
+                {chip} <FaChevronDown className="chip-icon" />
+              </button>
+            ))}
           </div>
-          <div className="image">
-            <img src="/heroS.jpg" alt="hero" />
-          </div>
-        </div>
-        <div className="details">
-          {details.map((element) => {
-            return (
-              <div className="card" key={element.id}>
-                <div className="icon">{element.icon}</div>
-                <div className="content">
-                  <p>{element.title}</p>
-                  <p>{element.subTitle}</p>
-                </div>
-              </div>
-            );
-          })}
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

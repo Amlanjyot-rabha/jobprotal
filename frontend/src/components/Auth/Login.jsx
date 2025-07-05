@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash, FaFacebookF, FaApple, FaGoogle } from "react-icons/f
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
-
+import './style.css'
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -63,38 +63,39 @@ const Login = () => {
                 onChange={(e) => setRole(e.target.value)}
                 required
               >
-                <option value="" disabled hidden></option>
+                <option value="" disabled hidden>role</option>
                 <option value="Job Seeker">Job Seeker</option>
                 <option value="Employer">Employer</option>
               </select>
+              <label className={role ? "floating" : ""}>Login As</label>
               <FaRegUser />
             </div>
-            <label className={role ? "floating" : ""}>Login As</label>
           </div>
           <div className="inputTag">
             <div>
               <input
                 type="email"
-                placeholder=" "
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="username"
               />
+              <label className={email ? "floating" : ""}>Email</label>
               <MdOutlineMailOutline />
             </div>
-            <label className={email ? "floating" : ""}>Email</label>
           </div>
           <div className="inputTag">
             <div>
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder=" "
+                placeholder="password "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
               />
+              <label className={password ? "floating" : ""}>Password</label>
               <span
                 className="toggle-password"
                 onClick={() => setShowPassword((prev) => !prev)}
@@ -106,7 +107,6 @@ const Login = () => {
               </span>
               <RiLock2Fill />
             </div>
-            <label className={password ? "floating" : ""}>Password</label>
           </div>
           <Link to="#" className="auth-link">Forgot password?</Link>
           <div className="auth-actions">

@@ -1,0 +1,15 @@
+.inputTag label {
+    display: none;
+    /* border: 1px solid red !important */
+}
+.inputTag select:focus{
+background: transparent !important;
+}
+.inputTag input:focus{
+ background: transparent !important;
+}
+#number{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
