@@ -22,14 +22,13 @@ config({ path: "./config/config.env" });
 // );
 
 const allowedOrigins = [
-  process.env.FRONTEND_URL,           // production frontend
-  "http://localhost:5173"             // local frontend for development
+  "https://jobprotal-frontend.onrender.com",            
+  "http://localhost:5173"              
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // allow requests with no origin (like mobile apps, curl, postman)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
