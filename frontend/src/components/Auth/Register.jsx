@@ -7,7 +7,7 @@ import { FaPhoneFlip } from "react-icons/fa6";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Context } from "../../main";
+import { Context, useApi } from "../../main";
 import { FaEye, FaEyeSlash, FaFacebookF, FaApple, FaGoogle } from "react-icons/fa";
 
 const Register = () => {
@@ -19,12 +19,13 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { isAuthorized, setIsAuthorized, user, setUser } = useContext(Context);
+  const { baseUrl } = useApi();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://jobprotal-g6ed.onrender.com/api/v1/user/register",
+        `${baseUrl}/api/v1/user/register`,
         { name, phone, email, role, password },
         {
           headers: {

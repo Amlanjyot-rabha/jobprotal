@@ -41,6 +41,7 @@ export const login = catchAsyncErrors(async (req, res, next) => {
     );
   }
   sendToken(user, 201, res, "User Logged In Sucessfully !");
+  console.log('working')
 });
 
 export const logout = catchAsyncErrors(async (req, res, next) => {

@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import { Toaster } from "react-hot-toast";
-import axios from "axios";
 import Navbar from "./components/Layout/Navbar";
 import Footer from "./components/Layout/Footer";
 import Home from "./components/Home/Home";
@@ -18,26 +17,20 @@ import NotFound from "./components/NotFound/NotFound";
 import MyJobs from "./components/Job/MyJobs";
 
 const App = () => {
-  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
+  const { setIsAuthorized, setUser } = useContext(Context);
 
- useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const response = await axios.get(
-        "https://jobprotal-g6ed.onrender.com/api/v1/user/getuser",
-        {
-          withCredentials: true,
-        }
-      );
-      setUser(response.data.user);
+  useEffect(() => {
+    // Initialize auth state from localStorage instead of calling /getuser
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+    if (token && user) {
+      setUser(JSON.parse(user));
       setIsAuthorized(true);
-    } catch (error) {
+    } else {
       setIsAuthorized(false);
+      setUser({});
     }
-  };
-  fetchUser();
-}, []); // ✅ Only runs on first render
-
+  }, []);
 
   return (
     <>

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../../main";
+import { Context, useApi } from "../../main";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -13,12 +13,13 @@ const MyApplications = () => {
 
   const { isAuthorized } = useContext(Context);
   const navigateTo = useNavigate();
+  const { baseUrl } = useApi();
 
   useEffect(() => {
     try {
       if (user && user.role === "Employer") {
         axios
-          .get("https://jobprotal-g6ed.onrender.com/api/v1/application/employer/getall", {
+          .get(`${baseUrl}/api/v1/application/employer/getall`, {
             withCredentials: true,
           })
           .then((res) => {
@@ -26,7 +27,7 @@ const MyApplications = () => {
           });
       } else {
         axios
-          .get("https://jobprotal-g6ed.onrender.com/api/v1/application/jobseeker/getall", {
+          .get(`${baseUrl}/api/v1/application/jobseeker/getall`, {
             withCredentials: true,
           })
           .then((res) => {
@@ -45,7 +46,7 @@ const MyApplications = () => {
   const deleteApplication = (id) => {
     try {
       axios
-        .delete(`https://jobprotal-g6ed.onrender.com/api/v1/application/delete/${id}`, {
+        .delete(`${baseUrl}/api/v1/application/delete/${id}`, {
           withCredentials: true,
         })
         .then((res) => {

@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Context } from "../../main";
+import React, { useContext, useEffect, useState } from "react";
+import { Context, useApi } from "../../main";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -9,12 +9,13 @@ import { AiOutlineClose } from "react-icons/ai";
 const Navbar = () => {
   const [show, setShow] = useState(false);
   const { isAuthorized, setIsAuthorized, user } = useContext(Context);
+  const { baseUrl } = useApi();
   const navigateTo = useNavigate();
 
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        "https://jobprotal-g6ed.onrender.com/api/v1/user/logout",
+        `${baseUrl}/api/v1/user/logout`,
         {
           withCredentials: true,
         }
@@ -26,6 +27,7 @@ const Navbar = () => {
       toast.error(error.response.data.message), setIsAuthorized(true);
     }
   };
+  
 
   return (
     <nav className={isAuthorized ? "navbar-modern" : "navbarHide"}>

@@ -6,7 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FaEye, FaEyeSlash, FaFacebookF, FaApple, FaGoogle } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Context } from "../../main";
+import { Context, useApi } from "../../main";
 import './style.css'
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,12 +15,13 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { isAuthorized, setIsAuthorized } = useContext(Context);
+  const { baseUrl } = useApi();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://jobprotal-g6ed.onrender.com/api/v1/user/login",
+        `${baseUrl}/api/v1/user/login`,
         { email, password, role },
         {
           headers: {
@@ -39,6 +40,8 @@ const Login = () => {
     }
   };
 
+  //  const value = localStorage.getItem('isLoggedIn') === 'true';
+   
   if(isAuthorized){
     return <Navigate to={'/'}/>
   }

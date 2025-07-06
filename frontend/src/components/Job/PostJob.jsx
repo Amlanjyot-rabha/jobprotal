@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Context } from "../../main";
+import { Context, useApi } from "../../main";
 const PostJob = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -16,6 +16,7 @@ const PostJob = () => {
   const [salaryType, setSalaryType] = useState("default");
 
   const { isAuthorized, user } = useContext(Context);
+  const { baseUrl } = useApi();
 
   const handleJobPost = async (e) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ const PostJob = () => {
     }
     await axios
       .post(
-        "https://jobprotal-g6ed.onrender.com/api/v1/job/post",
+        `${baseUrl}/api/v1/job/post`,
         fixedSalary.length >= 4
           ? {
               title,

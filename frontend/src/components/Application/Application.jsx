@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { Context } from "../../main";
+import { Context, useApi } from "../../main";
 
 const Application = () => {
   const [name, setName] = useState("");
@@ -17,6 +17,7 @@ const Application = () => {
   const { isAuthorized, user } = useContext(Context);
   const navigateTo = useNavigate();
   const { id } = useParams();
+  const { baseUrl } = useApi();
 
   // Function to handle file input changes with validation
   const handleFileChange = (event) => {
@@ -72,7 +73,7 @@ const Application = () => {
 
     try {
       const { data } = await axios.post(
-        "https://jobprotal-g6ed.onrender.com/api/v1/application/post",
+        `${baseUrl}/api/v1/application/post`,
         formData,
         {
           withCredentials: true,

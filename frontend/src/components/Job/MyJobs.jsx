@@ -3,13 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaCheck } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
-import { Context } from "../../main";
+import { Context, useApi } from "../../main";
 import { useNavigate } from "react-router-dom";
 
 const MyJobs = () => {
   const [myJobs, setMyJobs] = useState([]);
   const [editingMode, setEditingMode] = useState(null);
   const { isAuthorized, user } = useContext(Context);
+  const { baseUrl } = useApi();
 
   const navigateTo = useNavigate();
   //Fetching all jobs
@@ -17,7 +18,7 @@ const MyJobs = () => {
     const fetchJobs = async () => {
       try {
         const { data } = await axios.get(
-          "https://jobprotal-g6ed.onrender.com/api/v1/job/getmyjobs",
+          `${baseUrl}/api/v1/job/getmyjobs`,
           { withCredentials: true }
         );
         setMyJobs(data.myJobs);
@@ -47,7 +48,7 @@ const MyJobs = () => {
   const handleUpdateJob = async (jobId) => {
     const updatedJob = myJobs.find((job) => job._id === jobId);
     await axios
-      .put(`https://jobprotal-g6ed.onrender.com/api/v1/job/update/${jobId}`, updatedJob, {
+      .put(`${baseUrl}/api/v1/job/update/${jobId}`, updatedJob, {
         withCredentials: true,
       })
       .then((res) => {
@@ -62,7 +63,7 @@ const MyJobs = () => {
   //Function For Deleting Job
   const handleDeleteJob = async (jobId) => {
     await axios
-      .delete(`https://jobprotal-g6ed.onrender.com/api/v1/job/delete/${jobId}`, {
+      .delete(`${baseUrl}/api/v1/job/delete/${jobId}`, {
         withCredentials: true,
       })
       .then((res) => {
