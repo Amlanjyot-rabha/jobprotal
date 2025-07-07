@@ -3,9 +3,15 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 
 // Create ApiContext and custom hook
+ 
 export const ApiContext = createContext({ baseUrl: "https://jobprotal-g6ed.onrender.com" });
 export const useApi = () => useContext(ApiContext);
 
+ 
+ 
+
+
+ 
 export const Context = createContext({
   isAuthorized: false,
 });
@@ -13,7 +19,10 @@ export const Context = createContext({
 const AppWrapper = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [user, setUser] = useState({});
+ 
   const baseUrl = "https://jobprotal-g6ed.onrender.com";
+ 
+ 
 
   return (
     <ApiContext.Provider value={{ baseUrl }}>
