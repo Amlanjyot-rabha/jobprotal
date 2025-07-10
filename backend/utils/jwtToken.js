@@ -1,28 +1,14 @@
 export const sendToken = (user, statusCode, res, message) => {
   const token = user.getJWTToken();
-
-  const isProduction = process.env.NODE_ENV === "production";
-
+  // Fallback to 7 days if COOKIE_EXPIRE is not set
+  const cookieExpireDays = process.env.COOKIE_EXPIRE || 7;
   const options = {
-
-
-    httpOnly: true,
-    secure: isProduction,                      
-    sameSite: isProduction ? "None" : "Lax",  
-    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-
     expires: new Date(
-      Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+      Date.now() + cookieExpireDays * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", 
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",  
-
-
-    httpOnly: true,
-    secure: isProduction,                      
-    sameSite: isProduction ? "None" : "Lax",   
-    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),  
+    secure: process.env.NODE_ENV === "production", // Only send cookie over HTTPS in production
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Required for cross-site cookies
   };
 
   res.status(statusCode).cookie("token", token, options).json({
