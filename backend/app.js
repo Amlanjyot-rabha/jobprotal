@@ -11,8 +11,7 @@ import fileUpload from "express-fileupload";
 
 const app = express();
 config({ path: "./config/config.env" });
-
-app.set("trust proxy", 1); // <-- Add this line for secure cookies behind proxy
+ 
 
 // app.use(
 //   cors({
