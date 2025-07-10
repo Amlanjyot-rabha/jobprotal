@@ -35,15 +35,14 @@ const Login = () => {
       setPassword("");
       setRole("");
       setIsAuthorized(true);
-      localStorage.setItem('auth','true')
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
 
-  //  const value = localStorage.getItem('isLoggedIn') === 'true';
+
    
-  if(localStorage.getItem('auth')==='true'){
+  if(isAuthorized){
     return <Navigate to={'/'}/>
   }
 
