@@ -13,20 +13,21 @@ const Navbar = () => {
   const navigateTo = useNavigate();
 
   const handleLogout = async () => {
-    try {
-      const response = await axios.get(
-        `${baseUrl}/api/v1/user/logout`,
-        {
-          withCredentials: true,
-        }
-      );
-      toast.success(response.data.message);
-      setIsAuthorized(false);
-      navigateTo("/login");
-    } catch (error) {
-      toast.error(error.response.data.message), setIsAuthorized(true);
-    }
-  };
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/v1/user/logout`,
+      {},
+      { withCredentials: true }
+    );
+    toast.success(response.data.message);
+    setIsAuthorized(false);
+    
+    navigateTo("/login");
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Logout failed");
+    setIsAuthorized(false);
+  }
+};
   
 
   return (
