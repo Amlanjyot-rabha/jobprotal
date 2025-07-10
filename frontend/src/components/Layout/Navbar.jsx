@@ -17,7 +17,7 @@ const handleLogout = async () => {
     await axios.get(`${baseUrl}/api/v1/user/logout`, {
       withCredentials: true
     });
-    localStorage.setItem('isLoggedOut', 'true'); // Add this
+    localStorage.setItem('auth', 'false'); // Add this
     setIsAuthorized(false);
     navigateTo("/login");
   } catch (error) {
