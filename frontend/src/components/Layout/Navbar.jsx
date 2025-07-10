@@ -12,21 +12,28 @@ const Navbar = () => {
   const { baseUrl } = useApi();
   const navigateTo = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      const response = await axios.get(
-        `${baseUrl}/api/v1/user/logout`,
-        {
-          withCredentials: true,
-        }
-      );
-      toast.success(response.data.message);
-      setIsAuthorized(false);
-      navigateTo("/login");
-    } catch (error) {
-      toast.error(error.response.data.message), setIsAuthorized(true);
-    }
-  };
+const handleLogout = async () => {
+  try {
+    await axios.get(`${baseUrl}/api/v1/user/logout`, {
+      withCredentials: true
+    });
+    localStorage.setItem('auth', 'false'); // Add this
+    setIsAuthorized(false);
+    navigateTo("/login");
+  } catch (error) {
+    // error handling
+  }
+};
+
+// Then in your auth initialization:
+useEffect(() => {
+  if (localStorage.getItem('isLoggedOut') === 'true') {
+    setIsAuthorized(false);
+    localStorage.removeItem('isLoggedOut');
+    return;
+  }
+  // ... rest of your auth check
+}, []);
   
 
   return (

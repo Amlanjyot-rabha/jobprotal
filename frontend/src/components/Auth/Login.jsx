@@ -40,7 +40,7 @@ const Login = () => {
     }
   };
 
-  //  const value = localStorage.getItem('isLoggedIn') === 'true';
+
    
   if(isAuthorized){
     return <Navigate to={'/'}/>
