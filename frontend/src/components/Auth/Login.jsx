@@ -35,6 +35,7 @@ const Login = () => {
       setPassword("");
       setRole("");
       setIsAuthorized(true);
+      localStorage.setItem('auth','true')
     } catch (error) {
       toast.error(error.response.data.message);
     }
