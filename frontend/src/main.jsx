@@ -1,6 +1,9 @@
 import React, { createContext, useState, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 // Create ApiContext and custom hook
  
