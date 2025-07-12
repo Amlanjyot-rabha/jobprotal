@@ -17,23 +17,14 @@ const handleLogout = async () => {
     await axios.get(`${baseUrl}/api/v1/user/logout`, {
       withCredentials: true
     });
-    localStorage.setItem('auth', 'false'); // Add this
-    setIsAuthorized(false);
+    // setIsAuthorized(false);
     navigateTo("/login");
   } catch (error) {
     // error handling
   }
 };
 
-// Then in your auth initialization:
-useEffect(() => {
-  if (localStorage.getItem('isLoggedOut') === 'true') {
-    setIsAuthorized(false);
-    localStorage.removeItem('isLoggedOut');
-    return;
-  }
-  // ... rest of your auth check
-}, []);
+
   
 
   return (

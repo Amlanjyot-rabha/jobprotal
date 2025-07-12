@@ -41,7 +41,6 @@ export const login = catchAsyncErrors(async (req, res, next) => {
     );
   }
   sendToken(user, 201, res, "User Logged In Sucessfully !");
-  console.log('working')
 });
 
 // export const logout = catchAsyncErrors(async (req, res, next) => {
@@ -57,22 +56,15 @@ export const login = catchAsyncErrors(async (req, res, next) => {
 //     });
 // });
 
-export const logout = catchAsyncErrors(async (req, res, next) => {
-  res
-    .status(200)
-    .cookie("token", "", {
-      httpOnly: true,
-      expires: new Date(Date.now()),
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/'
-    })
-    .json({
-      success: true,
-      message: "Logged out successfully"
-    });
+export const logout = catchAsyncErrors(async (req, res) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    expires: new Date(0),
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    path: '/'
+  }).status(200).json({ success: true, message: "Logged out" });
 });
-
 
 
 export const getUser = catchAsyncErrors((req, res, next) => {
