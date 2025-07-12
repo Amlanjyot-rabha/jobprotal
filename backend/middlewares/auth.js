@@ -8,8 +8,8 @@ export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
   
   if (!token) {
-    // return next(new ErrorHandler("Please login to access", 401));
-    console.log(token)
+    return next(new ErrorHandler(token)); 
+ 
   }
 
   try {
@@ -17,7 +17,6 @@ export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
     req.user = await User.findById(decoded.id);
     next();
   } catch (error) {
-    // Specific error handling
     if (error.name === 'TokenExpiredError') {
       return next(new ErrorHandler("Session expired, please login again", 401));
     }
