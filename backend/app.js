@@ -22,7 +22,8 @@ config({ path: "./config/config.env" });
 // );
 
 const allowedOrigins = [
-  "https://jobprotal-frontend.onrender.com",                        
+  "https://jobprotal-frontend.onrender.com",    
+ "http://localhost:5173"
 ];
 
 app.use(
